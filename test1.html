@@ -1,0 +1,67 @@
+<html>
+<head>
+<style>
+</style>
+<body>
+<table>
+  <tr><td>text to save</tr>
+  <tr>
+      <td colspan=3>
+	    <textarea id="savatoinput" cols="80" rows="25"></textarea>
+	  </td>
+  </tr>
+  <tr>
+    <td>
+	  Enter the filename<input type="text" id="savename"/>
+	</td>
+  </tr>
+  <tr>
+    <td><button id="save" onclick="filetosave()">SAVE</button></td>
+  </tr>
+   
+</table>
+
+</body>
+<script>
+
+ function filetosave(){
+ 
+  var inputtextarea=document.getElementById('savatoinput').value;
+  console.log(inputtextarea);
+  
+  var blob=new Blob([inputtextarea],{type:'text/plain'});
+  var url=window.URL.createObjectURL(blob);
+  
+  
+  var filename=document.getElementById('savename').value;
+  
+  
+  var link=document.createElement('a');
+  link.download=filename;
+  link.innerHTML="downloadingFile";
+  link.href=url;
+  //link.click=destroyelement;
+  link.style.display="none";
+  document.body.appendChild(link);
+  
+  link.click();
+  
+  console.log(filename);
+  
+  
+  
+  
+  console.log(url);
+  console.log(blob);
+ 
+ }
+ 
+function  destroyelement(event){
+document.body.removeChild(event.target);
+
+}
+
+
+</script>
+
+</html>

@@ -1,0 +1,160 @@
+.back{
+	background-color:#000;
+width:100%;
+
+overflow:hidden;	
+
+}
+.line{
+	border-left:1px dotted white;
+	height:40px;
+	float:left;
+	margin-top:20px;
+	
+}
+.logo{
+	width:180px;
+	
+}
+.logo h2{
+	font-size:16px;
+	color:white;
+	line-height:20px;
+	padding-left:10px;
+}
+.text-primary{
+	color:green;
+	margin-top:20px;
+}
+
+.navbar-default .navbar-nav {
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.navbar-default .navbar-nav  .caret{
+	
+  color: #ff5821;
+  vertical-align: middle;
+  margin:0;
+  border:none;
+   line-height: 1;
+  font-size: 18px;
+  font-weight: normal;
+  float: right;
+  width: auto;
+  height: auto;
+}
+
+
+@media(min-width:768px)
+{
+.navbar-default .navbar-nav  .caret{
+	float:none;
+	margin: -4px 0 0 8px;
+    font-size: 10px;
+	}	
+	
+}
+
+.navbar-default .navbar-nav .caret:after {
+  content: "\f078";
+  font-family: 'FontAwesome';
+}
+	
+.navbar-default .navbar-nav li{
+	margin:0;
+	border-bottom:1px solid #d3d3d3;
+}
+
+@media(min-width:768px){
+	.navbar-default .navbar-nav li {
+    border-right: 1px solid #D3D3D3;
+    border-bottom: none;
+  }
+}
+
+.navbar-default .navbar-nav li:firstchild{
+	border-left-color: #ffffff;
+}
+
+.navbar-default .navbar-nav li a:not(btn){
+	
+	border-radius:0;
+	padding:20px 20px;
+	font-size:14px;
+	font-weight:600;
+	text-transform:uppercase;
+	color:#343331;
+}
+
+@media(min-width:768px)
+{
+	.navbar-default .navbar-nav li a:not(btn)
+	{
+   height:60px;
+   line-height:60px;
+   padding:0 25px;
+		
+}
+
+
+.navbar-default .navbar-nav li a:not(btn):hover .dropdown{
+	display:block;
+}
+
+@media (min-width: 768px) {
+  .navbar-default .navbar-nav li.icon-link a {
+    height: 60px;
+    line-height: 60px;
+    padding-top: 0;
+    padding-bottom: 0;
+    text-align: center;
+  }
+}
+	
+	
+.navbar-toggle{
+	float:left;
+}
+
+
+
+	
+	
+	
+	
+
+.navbar-default{
+	background-color:#eee;
+}
+
+.navbar{
+    position: relative;
+    min-height: 70px;
+    margin-bottom: 20px;
+    
+}
+
+.navbar-default .navbar-nav>li>a
+{
+	padding-top: 23px;
+    padding-bottom: 15px;
+}
+
+.navbar-default .navbar-nav>li
+
+.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 25px 15px;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.fa-home{
+	font-size:30px;
+	
+}
