@@ -1,0 +1,90 @@
+<!------parent component html file----->
+  <div class="container">
+    <div class="row border1">
+       <div class="col-lg-6 col-md-6 col-sm-3 border1">
+            <h1>component1</h1>
+            <input type="number" [(ngModel)]="data">
+            <div *ngIf="show">
+                <h1>{{amount}}</h1>
+            </div>
+            
+            
+      </div>
+       <div class="col-lg-6 col-md-6 col-sm-9 border1">
+          <app-childcomponent [amount]="data" (change)="update($event)"></app-childcomponent>
+               
+      </div>
+    </div>
+  </div>
+  
+<!------parent component component html file--------->
+  import { Component, OnInit } from '@angular/core';
+import{FormsModule} from'@angular/forms';
+
+@Component({
+  selector: 'app-parentcomponent',
+  templateUrl: './parentcomponent.component.html',
+  styleUrls: ['./parentcomponent.component.css']
+})
+export class ParentcomponentComponent implements OnInit {
+
+  default:number=5000;
+  data:number;
+  amount:number;
+  show:boolean=false;
+  sendvalue(value:string){
+    console.log(value);
+  }
+ 
+  update(value:number){
+    this.amount=value;
+    this.show=true;
+  }
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}
+
+------------>
+<!----child compnent functionality---------->
+
+default:number=5000;
+  amount1:number;
+  @Input() amount:number;
+  @Output() change:EventEmitter<any>=new EventEmitter();
+  constructor() { }
+
+  ngOnInit() {
+    console.log(this.amount);
+    //this.amount1=this.amount;
+
+  }
+  deposit(){
+     this.default=this.default+this.amount;
+     this.change.emit(this.default);
+  }
+  withdraw(){
+    this.default=this.default-this.amount;
+    if(this.default<0){
+      alert("please enter with in amount")
+    }
+    else
+    {
+    this.change.emit(this.default);
+    }
+  }
+
+}
+
+<!----------child component html------>
+
+<div class="container">
+  <span><button class="btn btn-primary gap" (click)="deposit()">Deposit</button></span>
+  <span><button class="btn btn-primary gap"(click)="withdraw()">Withdraw</button></span>
+</div>
+
+
+
