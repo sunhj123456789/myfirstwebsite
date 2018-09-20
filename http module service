@@ -1,0 +1,141 @@
+import { Component, OnInit } from '@angular/core';
+import {MyService} from './../my.service';
+@Component({
+  selector: 'app-createemployee',
+  templateUrl: './createemployee.component.html',
+  styleUrls: ['./createemployee.component.css']
+})
+export class CreateemployeeComponent implements OnInit {
+
+  data:any;
+  myarr:any[]=[];
+  objectKeys:any;
+  //myarr:any;
+  constructor(private myservice:MyService) {
+   //this.myarr=[];
+   
+   }
+
+  ngOnInit() {
+    this.objectKeys = Object.keys;
+  this.myservice.fetchdata().subscribe((res)=>{
+    this.myarr=res.json();
+    console.log(this.myarr);
+    //let mykey=Object.keys(this.myarr);
+    //console.log(this.myarr);
+    //console.log(mykey);
+    //console.log(this.data);
+    //this.myarr.push(this.data);
+  },
+(error)=>{
+  alert("error");
+})
+  //console.log(this.myarr);
+  //
+  }
+
+
+}
+<------------------html---------------------------->
+<div class="container">
+<table class="table table-bordered">
+  <thead>
+    <th>userId</th>
+    <th>id</th>
+    <th>title</th>
+    <th>content</th>
+    
+  </thead>
+  <tbody>   
+     <tr  *ngFor="let key of objectKeys(myarr)">
+      <td>{{myarr[key].userId}}</td>
+      <td>{{myarr[key].id}}</td>
+      <td>{{myarr[key].title}}</td>
+      <td>{{myarr[key].body}}</td>
+     </tr>
+    
+  </tbody>
+</table>
+</div>
+
+<pre>{{myarr | json}}</pre>
+
+
+<------------------------------------------http service-------------->
+
+
+import { Injectable } from '@angular/core';
+import {Http} from '@angular/http';
+import {User} from './user';
+//import{BehaviorSubject} from 'rxjs/BehaviourSubject';
+import {BehaviorSubject,Observable} from 'rxjs';
+import{map} from 'rxjs/operators';
+
+//import { map } from 'rxjs/operators';
+
+//import 'rxjs/add/operator/map';
+
+
+
+//import 'rxjs/add/operator/map';
+//import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
+//import { map, filter, switchMap } from 'rxjs/operators';
+//import 'rxjs/add/operators/map';
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class MyService {
+  data1:any;
+
+  private credentials$ = new BehaviorSubject<User>({
+    amount: "5000",
+    reason: "wedding",
+    date:"13-8-16"
+});
+cast=this.credentials$.asObservable();  
+
+
+setuser(newuser:User){
+  console.log(newuser);
+  this.credentials$.next(newuser);
+}
+
+getuser():Observable<User>{
+  console.log(this.credentials$.asObservable());
+  return this.credentials$.asObservable();
+}
+ 
+  obj={name:"sundar",rollno:"45"};
+  success(){
+    return "sucess";
+  }
+
+  constructor(private http:Http) { 
+  
+  }
+
+  fetchdata():Observable<any>{
+    //return this.http.get("https://jsonplaceholder.typicde.com/posts").pipe(map(res=>res.json()));
+    return this.http.get("https://jsonplaceholder.typicode.com/posts");
+  }
+} 
+      
+  /*return this.http.get('./assets/data/test.json').
+  pipe(map(response=>{
+    const data=response.json();
+    //console.log(data);
+    return data;
+  })).subscribe((data)=>{
+    this.data1=data;
+    console.log(this.data1);
+  });*/
+  
+  
+    
+    //console.log(this.data1);
+  //return this.obj;
+     
+
+    
