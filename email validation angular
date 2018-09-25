@@ -1,0 +1,192 @@
+
+<form #f="ngForm" (ngSubmit)="submit(employee)">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+          <div class="panel-title">create the Employee</div>
+      </div>
+      <div class="panel-body">
+
+            <div class="form-group" [class.has-error]="name.invalid && name.touched"
+            [class.has-success]="name.valid">
+            <label for="name" class="control-label">Name</label>
+            <input type="text" name="name" class="form-control" required  [(ngModel)]="employee.name" #name="ngModel">
+            <span class="help-block" *ngIf="name.invalid && name.touched">invalid name</span>
+         
+
+         </div>
+         
+      <div class="form-group" [class.has-error]="email.invalid && email.touched">
+          <label for="email" class="control-label">Email</label>
+          <input type="email" name="email" class="form-control" required [email]="employee.email !=''" [(ngModel)]="employee.email" #email="ngModel">
+          <span class="help-block" *ngIf="email.errors?.required  && email.touched">Email is required</span>
+          <span class="help-block" *ngIf="email.errors?.email  && email.touched">Email is invalid</span>
+
+      </div>
+
+
+
+    <div class="form-group">
+          <label>contace preference</label>
+        <div class="form-control">
+            <label class="radio-inline">
+            <input type="radio" value="Email" name="contact" [(ngModel)]="employee.contact"  #contact="ngModel">email
+            </label>
+            <label class="radio-inline">
+            <input type="radio" value="phone" name="contact" [(ngModel)]="employee.contact" #contact="ngModel">phone
+            </label>
+        </div>
+      </div>
+      
+      -----------------------------------------------
+      import { Component, OnInit } from '@angular/core';
+import {Employee} from './../models/employee.model'
+import{NgForm} from'@angular/forms';
+import {MyService} from './../my.service';
+import{Department} from '../model.department';
+import {BsDatepickerConfig}from 'ngx-bootstrap';
+
+@Component({
+  selector: 'app-createemployee',
+  templateUrl: './createemployee.component.html',
+  styleUrls: ['./createemployee.component.css']
+})
+export class CreateemployeeComponent implements OnInit {
+
+  data:any;
+  myarr:any[]=[];
+  myarr1:any[]=[];
+  objectKeys:any;
+  employee:Employee={
+    id:null,
+    name:null,
+    gender:null,
+    email:'',
+    phoneNumber:null,
+    contactPreference:null,
+    dataOfBirth:null,
+    department:null,
+    isActive:null,
+    photoPath:null
+  };
+ 
+  previewphoto=false;
+  departments:Department[]=[
+    {id:1,name:'cse'},
+     {id:2,name:'IT desk'},
+     {id:3,name:'installation'}       
+    ];
+
+
+datapickconfig:Partial<BsDatepickerConfig>;
+
+  //myarr:any;
+  constructor(private myservice:MyService) {
+   //this.myarr=[];
+   this.datapickconfig=Object.assign({},
+    {
+      containerClass:'theme-blue'   
+    });
+   
+   }
+
+   toggle(){
+     this.previewphoto=!this.previewphoto;
+   }
+
+
+
+  ngOnInit() {
+    this.objectKeys = Object.keys;
+  this.myservice.fetchdata().subscribe((res)=>{
+    this.myarr=res.json();
+    console.log(this.myarr);
+    //let mykey=Object.keys(this.myarr);
+    //console.log(this.myarr);
+    //console.log(mykey);
+    //console.log(this.data);
+    //this.myarr.push(this.data);
+  },
+(error)=>{
+  alert("error");
+})
+  //console.log(this.myarr);
+  //
+  }
+
+  submit(emp:Employee):void{
+    console.log(emp);
+    this.myarr1.push(emp);
+    console.log(this.myarr1);
+  }
+
+
+}
+
+  
+  
+
+
+
+    <div class="form-group">
+        <label>Gender</label>
+      <div class="form-control">
+          <label class="radio-inline">
+          <input type="radio" value="male"name="gender" [(ngModel)]="employee.gender" #gender="ngModel">male
+          </label>
+          <label class="radio-inline">
+          <input type="radio" value="female" name="gender" [(ngModel)]="employee.gender"#gender="ngModel">Female
+          </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="form-control">
+        <label class="checkbox-inline">
+          <input type="checkbox" name="isActive" [(ngModel)]="employee.isActive" #isActive="ngModel">isActive
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+        <label for="department">Department</label>
+            <select id="department" name="department" [(ngModel)]="employee.department" #department="ngModel" class="form-control">
+                 <option *ngFor="let dep of departments" [value]="dep.id">{{dep.name}}</option>
+            </select>
+    </div>
+     <div class="form-group">
+        <label for="dataofbirth">Date of Birth</label>
+        <input type="text" name="dataofbirth" bsDatepicker [bsConfig]="datapickconfig"   [(ngModel)]="employee.dataofbirth"  #dataofbirth="ngModel" class="form-control" placement="bottom">
+    </div>
+
+    <div class="form-group">
+            <label for="photopath">photopath</label>
+            <input type="text" name="photopath" class="form-control" required [(ngModel)]="employee.photopath" #photopath="ngModel">
+            <button type="button" class="btn btn-primary" (click) ="toggle()">{{previewphoto ?"hide":"show"}}preview</button>
+    </div>
+    <div class="form-group">
+      <img  [src]="employee.photopath" width="200px" height="200px" *ngIf="previewphoto">
+
+    </div>
+      
+  
+  </div>
+
+
+
+  <div class="panel-footer">
+        <input type="submit" class="btn btn-primary" value="save">
+  </div>
+
+    </div>
+</form>     
+
+
+
+
+    
+<!--<pre>{{f.value|json}}</pre>
+<pre>{{employee|json}}</pre>-->
+<div *ngFor="let list of myarr1">
+ <h5>{{list.name}}</h5>
+ <h5>{{list.email}}</h5>
+</div>
