@@ -62,7 +62,35 @@ export class DisplayemployeeComponent implements OnInit {
   }
   }
  
- 
+ ---------------------------------------------
+ export class ListEmployeeComponent implements OnInit {
+
+  employees:Employee[]=[];
+  employeedisplay:Employee;
+  empIndex:number=1;
+  constructor(private myservice:EmployeeServiceService) { }
+
+  ngOnInit() {
+    this.employees=this.myservice.get();
+    console.log(this.employees);
+    this.employeedisplay=this.employees[0];
+    console.log(this.employeedisplay);
+    }
+    nextEmployee():void{
+
+   if(this.empIndex>2){
+    this.empIndex=0;
+    this.employeedisplay=this.employees[0];
+    }
+   else
+   {
+    console.log(this.empIndex);
+    this.employeedisplay=this.employees[this.empIndex];
+    this.empIndex++;
+     }
+    }
+}
+
   
   
  
