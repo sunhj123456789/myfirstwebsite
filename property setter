@@ -35,6 +35,22 @@ export class DisplayemployeeComponent implements OnInit {
   get __employee():Employee{
     return this._employee;
   }
+ ngOnChanges(changes: SimpleChanges) {
+     
+    for(const property of Object.keys(changes))
+    {
+      
+     const change=changes[property];
+     console.log(change);
+     const from=JSON.stringify(change.previousValue);
+     const to=JSON.stringify(change.currentValue);
+     console.log('property change from'+from+'to'+to);
+    }
+   
+}
+
+
+
 
 
   constructor() {
