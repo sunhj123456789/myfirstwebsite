@@ -1,0 +1,64 @@
+import { Component, OnInit,Input } from '@angular/core';
+import {Employee} from './../models/employee.model';
+import{Department} from'../model.department';
+
+@Component({
+  selector: 'app-displayemployee',
+  templateUrl: './displayemployee.component.html',
+  styleUrls: ['./displayemployee.component.css']
+})
+export class DisplayemployeeComponent implements OnInit {
+  private employee:Employee;
+  private empId:number;
+  
+  @Input() 
+  set _employee(value:Employee){
+  
+  console.log('this previous value'+(this.employee?this.employee.name:'null'));
+  console.log('this next value'+value.name);
+  this.employee=value;
+  }
+  @Input()
+  set _empId(value:number){
+    
+    console.log('this previous value' +this._empId);
+    console.log('this next value' +value);
+    this.empId=value;
+    }
+  get _empId(){
+    return this.empId;
+  }
+  
+  
+
+
+  get __employee():Employee{
+    return this._employee;
+  }
+
+
+  constructor() {
+    console.log(this.employee);
+   }   
+
+  ngOnInit() {
+    
+  }
+  }
+ 
+ 
+  
+  
+ 
+  /*ngOnChanges(changes: SimpleChanges) {
+   
+    const previous=changes.employee.previousValue;
+    const current=changes.employee.currentValue;
+    console.log('previous'+(previous?previous.name:'null');
+    console.log('current'+current.name);
+
+  }
+*/
+  
+
+
